@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LayoutAdmin from '../components/LayoutAdmin';
-import { getTeachers, saveTeachers } from '../services/professorService';
+import { getTeachers, saveTeachers, deleteTeacher } from '../services/professorService';
 
 export default function AdminPage() {
   const [teachers, setTeachers] = useState([]);
@@ -50,16 +50,32 @@ export default function AdminPage() {
     setTeachers(updatedTeachers);
   };
 
+  const deleteTeacherHandler = async (id) => {
+    try {
+      setLoading(true);
+      await deleteTeacher(id);
+      const updatedTeachers = teachers.filter(teacher => teacher.id !== id);
+      setTeachers(updatedTeachers);
+    } catch (err) {
+      setError('Error deleting teacher');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (loading) 
-    return   
-    <LayoutAdmin>
-      <p>Loading...</p>
-    </LayoutAdmin>;
+    return (
+      <LayoutAdmin>
+        <p>Loading...</p>
+      </LayoutAdmin>
+    );
   if (error) 
-  return 
-  <LayoutAdmin>
-    <p>Error: {error}</p>
-  </LayoutAdmin>;
+    return (
+      <LayoutAdmin>
+        <p>Error: {error}</p>
+      </LayoutAdmin>
+    );
 
   return (
     <LayoutAdmin>
@@ -71,6 +87,7 @@ export default function AdminPage() {
               <li className="list-group-item d-flex justify-content-between">
                 <span>Prénom</span>
                 <span>Nom</span>
+                <span>Action</span>
               </li>
               {teachers.map((teacher) => (
                 <li key={teacher.id} className="list-group-item">
@@ -94,6 +111,14 @@ export default function AdminPage() {
                         onChange={(e) => handleInputChange(e, teacher.id, 'lastName')}
                         disabled={!teacher.editable}
                       />
+                    </div>
+                    <div className="col-auto">
+                      <button 
+                        className="btn btn-danger"
+                        onClick={() => deleteTeacherHandler(teacher.id)}
+                      >
+                        Supprimer
+                      </button>
                     </div>
                   </div>
                 </li>
