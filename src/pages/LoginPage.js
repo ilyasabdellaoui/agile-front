@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../services/authService';
-import { ensias } from '../images/ensias.png';
+import ensias from '../images/ensias.png';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -21,7 +21,7 @@ const LoginPage = () => {
       
       if (isSuccess) {
         navigate('/home');
-      }
+      } 
     } catch (error) {
       setError(error.message);
     }
