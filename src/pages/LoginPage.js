@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../services/authService';
 import { ensias } from '../images/ensias.png';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState(null);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,7 +20,7 @@ const LoginPage = () => {
       const isSuccess = await login(formData.email, formData.password);
       
       if (isSuccess) {
-        history.push('/admin');
+        navigate('/home');
       }
     } catch (error) {
       setError(error.message);
