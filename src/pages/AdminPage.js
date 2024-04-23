@@ -50,8 +50,16 @@ export default function AdminPage() {
     setTeachers(updatedTeachers);
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) 
+    return   
+    <LayoutAdmin>
+      <p>Loading...</p>
+    </LayoutAdmin>;
+  if (error) 
+  return 
+  <LayoutAdmin>
+    <p>Error: {error}</p>
+  </LayoutAdmin>;
 
   return (
     <LayoutAdmin>

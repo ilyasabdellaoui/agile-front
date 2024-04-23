@@ -15,13 +15,19 @@ export const getTeachers = async () => {
 
 export const saveTeachers = async (teachers) => {
   try {
-      const teachersToSend = teachers.map(({ editable, id, ...teacher }) => teacher);
+    const teachersToSend = teachers.filter(teacher => teacher.editable);
 
-      const response = await api.post('/api/professor/', teachersToSend);
-      return response.data;
+    for (const teacher of teachersToSend) {
+      await api.post('/api/professor/', {
+        firstName: teacher.firstName,
+        lastName: teacher.lastName
+      });
+    }
+
+    return true; 
   } catch (error) {
-      console.error('Failed to save teachers:', error);
-      throw error; 
+    console.error('Failed to save teachers:', error);
+    throw error; 
   }
 };
 
