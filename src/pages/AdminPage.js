@@ -33,7 +33,7 @@ export default function AdminPage() {
                   <span>Action</span>
                 </li>
                 {teachers.map((teacher) => (
-                  <TeacherItem 
+                  <Teacher 
                     key={teacher.id}
                     teacher={teacher}
                     onInputChange={updateTeacher}
