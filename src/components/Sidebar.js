@@ -2,21 +2,25 @@ import React from 'react';
 
 const Sidebar = () => {
   return (
-    <div style={sidebarStyle}>
-      <h2>Navigation</h2>
-      <ul style={listStyle}>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/services">Services</a></li>
-        <li><a href="/contact">Contact</a></li>
+    <div className="bg-white text-dark" style={sidebarStyle}>
+      <h4 className="text-center mb-4">Gestion du référentiel</h4>
+      <ul className="list-unstyled">
+        {navItems.map((item, index) => (
+          <li key={index} className="mb-2">
+            <a 
+              href={item.link} 
+              className="text-dark text-decoration-none" 
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   );
 };
 
 const sidebarStyle = {
-  backgroundColor: 'white',
-  color: 'black',
   width: '200px',
   height: '100vh',
   borderRight: '2px solid black',
@@ -25,9 +29,13 @@ const sidebarStyle = {
   flexDirection: 'column',
 };
 
-const listStyle = {
-  listStyleType: 'none',
-  padding: 0,
-};
+
+const navItems = [
+  { label: 'Enseignants', link: '/' },
+  { label: 'Etudiants', link: '/admin/etudiants' },
+  { label: 'Classes', link: '/admin/classes' },
+  { label: 'Matières', link: '/admin/matieres' },
+  { label: 'Planification', link: '/admin/planification' },
+];
 
 export default Sidebar;

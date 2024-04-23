@@ -1,10 +1,10 @@
 import './App.css';
 import { Route } from "wouter";
-import test from './components/Admin/test';
+import AdminPage from './pages/AdminPage';
 
 const App = () => (
   <>
-    <Route path="/about" component={test}/>
+    <Route path="/admin" component={AdminPage}/>
   </>
 );
 
