@@ -20,7 +20,7 @@ const LoginPage = () => {
       const isSuccess = await login(formData.email, formData.password);
       
       if (isSuccess) {
-        navigate('/home');
+        navigate('/admin');
       } 
     } catch (error) {
       setError(error.message);
