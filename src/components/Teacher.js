@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Teacher = ({ teacher, onInputChange, onDelete }) => (
+const TeacherItem = ({ teacher, onInputChange, onDelete }) => (
   <li key={teacher.id} className="list-group-item">
     <div className="row">
       <div className="col">
@@ -9,7 +9,7 @@ const Teacher = ({ teacher, onInputChange, onDelete }) => (
           className="form-control mb-2"
           placeholder="Prénom"
           value={teacher.firstName}
-          onChange={(e) => onInputChange(e, teacher.id, 'firstName')}
+          onChange={(e) => onInputChange(e.target.value, teacher.id, 'firstName')}
           disabled={!teacher.editable}
         />
       </div>
@@ -19,7 +19,7 @@ const Teacher = ({ teacher, onInputChange, onDelete }) => (
           className="form-control mb-2"
           placeholder="Nom"
           value={teacher.lastName}
-          onChange={(e) => onInputChange(e, teacher.id, 'lastName')}
+          onChange={(e) => onInputChange(e.target.value, teacher.id, 'lastName')}
           disabled={!teacher.editable}
         />
       </div>
@@ -35,4 +35,4 @@ const Teacher = ({ teacher, onInputChange, onDelete }) => (
   </li>
 );
 
-export default Teacher;
+export default TeacherItem;
