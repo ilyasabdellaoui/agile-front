@@ -5,7 +5,7 @@ export const login = async (email, password) => {
       const response = await api.get(`/api/admin/${email}/${password}`);
       
       if (response.data.token) {
-        localStorage.setItem('username', username);
+        localStorage.setItem('username', email);
         localStorage.setItem('token', response.data.token);
         return true;
       } else {

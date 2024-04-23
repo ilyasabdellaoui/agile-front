@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import LayoutAdmin from '../components/LayoutAdmin';
 import { getTeachers, saveTeachers } from '../services/professorService';
 
