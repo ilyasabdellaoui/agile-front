@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
 import LayoutAdmin from '../components/LayoutAdmin';
-import { saveTeachers } from '../services/professorService';
+import { getTeachers, saveTeachers } from '../services/professorService';
 
 export default function AdminPage() {
-  const [teachers, setTeachers] = useState([
-    { id: 1, firstName: 'OUAMMOU', lastName: 'Naoufal', editable: false },
-  ]);
+  const [teachers, setTeachers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        setLoading(true);
+        const data = await getTeachers();
+        setTeachers(data);
+      } catch (err) {
+        setError('Failed to fetch teachers');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeachers();
+  }, []);
 
   const addNewTeacherHandler = () => {
     const newTeacher = { id: Date.now(), firstName: '', lastName: '', editable: true };
@@ -14,9 +31,15 @@ export default function AdminPage() {
 
   const saveTeachersHandler = async () => {
     try {
+      setLoading(true);
       await saveTeachers(teachers);
-    } catch (error) {
-      console.error('Error saving teachers:', error);
+      const updatedTeachers = await getTeachers();
+      setTeachers(updatedTeachers);
+    } catch (err) {
+      setError('Error saving teachers');
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -26,6 +49,9 @@ export default function AdminPage() {
     );
     setTeachers(updatedTeachers);
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <LayoutAdmin>
@@ -66,16 +92,16 @@ export default function AdminPage() {
               ))}
             </ul>
             <div className="mt-3 d-flex justify-content-center">
-              <button 
-                className="btn btn-secondary" 
-                style={{ marginRight: '10px' }} 
+              <button
+                className="btn btn-secondary"
+                style={{ marginRight: '10px' }}
                 onClick={addNewTeacherHandler}
               >
                 + Ajouter une ligne
               </button>
-              <button 
-                className="btn btn-primary" 
-                style={{ marginLeft: '10px' }} 
+              <button
+                className="btn btn-primary"
+                style={{ marginLeft: '10px' }}
                 onClick={saveTeachersHandler}
               >
                 Enregistrer

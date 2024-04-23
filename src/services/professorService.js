@@ -1,24 +1,29 @@
 import { api } from './apiUtils';
 
 export const getTeachers = async () => {
-    try {
-        const response = await api.get('/api/professor/');
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-}
+  try {
+      const response = await api.get('/api/professor/');
+      return response.data.map(teacher => ({
+          ...teacher,
+          editable: false
+      }));
+  } catch (error) {
+      console.error('Failed to fetch teachers:', error);
+      throw error;
+  }
+};
 
 export const saveTeachers = async (teachers) => {
-    try {
-        const response = await api.post('/api/professor/', teachers);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-}
+  try {
+      const teachersToSend = teachers.map(({ editable, id, ...teacher }) => teacher);
+
+      const response = await api.post('/api/professor/', teachersToSend);
+      return response.data;
+  } catch (error) {
+      console.error('Failed to save teachers:', error);
+      throw error; 
+  }
+};
 
 export const deleteTeacher = async (id) => {
     try {
