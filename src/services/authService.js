@@ -3,13 +3,13 @@ import { api } from './apiUtils';
 export const login = async (email, password) => {
     try {
       const response = await api.get(`/api/admin/${email}/${password}`);
-      
-      if (response.data.token) {
+      localStorage.setItem('username', email);
+
+      if (response) {
         localStorage.setItem('username', email);
-        localStorage.setItem('token', response.data.token);
         return true;
       } else {
-        throw new Error('Token not found in response');
+        throw new Error('No response found');
       }
     } catch (error) {
       throw new Error(`Login failed: ${error.message}`);
