@@ -30,12 +30,12 @@ const LoginPage = () => {
       <div className="row justify-content-center">
         <div className="col-md-4 border rounded p-4">
           <div className="text-center mb-4">
-            <img src={ensias} alt="ensias" className="img-fluid mb-2" />
-            <h2>Bienvenue sur l'application de consultation des notes</h2>
+            <img src={ensias} alt="ensias" className="img-fluid" style={{ maxWidth: '100px' }} />
+            <h4>Bienvenue sur l'application de consultation des notes</h4>
           </div>
           {error && <div className="alert alert-danger">{error}</div>}
           <form onSubmit={handleSubmit}>
-            <h3 className="text-center mb-4">Veuillez vous authentifier</h3>
+            <h5 className="text-center mb-4 text-muted">Veuillez vous authentifier</h5>
             <div className="mb-3">
               <label className="form-label">Email ENSIAS</label>
               <input
