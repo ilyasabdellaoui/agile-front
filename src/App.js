@@ -6,7 +6,6 @@ import AdminPage from './pages/AdminPage';
 const App = () => (
   <>
     <Route path="/login" component={LoginPage}/>
-    <Route path="/" component={LoginPage}/>
     <Route path="/admin" component={AdminPage}/>
   </>
 );
